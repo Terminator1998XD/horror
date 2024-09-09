@@ -1,13 +1,19 @@
 var advcb = null;
 
 function onGPInit(gp){
-	
+
+	window.share = function(){
+		gp.socials.share({
+    	text: 'Это самый страшный хоррор, который я играл. Хочешь хорошенько испугаться? Тебе сюда!'
+		});
+	};
+
   if(gp != null){
 	  gp.ads.on('fullscreen:close', (success) => {
 		  if(advcb != null)
 			advcb.onClose();
 	  });
-	  
+
 	  gp.ads.on('rewarded:close', (success) => {
 		  if(advcb != null){
 				advcb.onRewarded();
@@ -16,7 +22,7 @@ function onGPInit(gp){
       // Получена награда
       gp.ads.on('rewarded:reward', () => {});
   }
-	
+
   window.ysdk = {adv: {
     showFullscreenAdv: function(info){
 
@@ -26,10 +32,10 @@ function onGPInit(gp){
         cb.onClose();
         return;
       }
-	  
+
 	  advcb = cb;
 
-      gp.ads.showFullscreen();			
+      gp.ads.showFullscreen();
     },
     showRewardedVideo: function(info){
       const cb = info.callbacks;
@@ -39,10 +45,10 @@ function onGPInit(gp){
         cb.onClose();
         return;
       }
-	  
+
 	  advcb = cb;
 
-      gp.ads.showRewardedVideo();      
+      gp.ads.showRewardedVideo();
     },
     hideBannerAdv: function(){
       if(gp != null)gp.ads.closeSticky();
